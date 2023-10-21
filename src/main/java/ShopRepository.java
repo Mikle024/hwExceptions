@@ -2,11 +2,6 @@ public class ShopRepository {
     private Product[] products = new Product[0];
 
     private Product[] addToArray(Product[] current, Product product) {
-        if (findById(product.getId()) == product) {
-            throw new AlreadyExistsException(
-                    "Товар с данным ID: " + product.getId() + " уже существует"
-            );
-        }
         Product[] tmp = new Product[current.length + 1];
         for (int i = 0; i < current.length; i++) {
             tmp[i] = current[i];
@@ -17,6 +12,11 @@ public class ShopRepository {
     }
 
     public void add(Product product) {
+        if (findById(product.getId()) == product) {
+            throw new AlreadyExistsException(
+                    "Товар с данным ID: " + product.getId() + " уже существует"
+            );
+        }
         products = addToArray(products, product);
     }
 
